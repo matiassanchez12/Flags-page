@@ -1,3 +1,16 @@
+html{
+  font-size: 16px;
+}
+:root{
+  --black: #111517;
+  --white: white;
+  --background: #fafafa;
+}
+body{
+  font-size: 'Nunito Sans', sans-serif;
+  color: var(--black);
+  background: var(--background);
+}
 .App {
   text-align: center;
 }
