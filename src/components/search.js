@@ -7,6 +7,7 @@ const SearchStyled = styled.div`
   display: flex;
   position: relative;
   .close {
+    color:rgb(196, 196, 196);
     position: absolute;
     right: 1em;
     top: 1em;

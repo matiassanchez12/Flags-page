@@ -3,34 +3,51 @@ import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components';
 
 const FilterStyled = styled.div`
+  @import url('https://fonts.google.com/specimen/Nunito+Sans');
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 12px;
   *{
-    box-sizing: border-box;
-}
-border: 1px solid grey;
-    padding: 0;
-    cursor:pointer;
+    box-sizing:border-box;
+  }
 .mi-icon{
-    text-align: end;
-    position: relative;
-    left: 20px;
+    margin-left: 10px;
 }
-li{
-    border: 1px solid grey;
-    text-decoration: none;
+
+div{
+  border-radius: 5px;
+  background-color: var(--white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  background: var(--white);
 }
-li:hover{
-    background-color: greenyellow;
-}
+
 ul{
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
+  border-radius: 4px;
+  background-color: var(--background-el);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
+  padding: 10px;
+  text-align: center;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style-type: none;
+  background: var(--white);
+  width: 100%;
+  z-index: 99;
 }
-.button-open li{
-    display: block;
+
+.button-close ul {
+  display: none;
 }
-.button-close li{
-   display:none;
+.button-open ul{
+  display:block;
+}
+
+li{
+  margin: 10px 0px;
 }
 `;
 
@@ -53,20 +70,22 @@ function SearchRegion (props) {
   };
 
   return (
-    <FilterStyled
-      className="button"
-      onClick={() => setdropdown (!dropdown)}
-      id="filter"
-    >
-      Filter by Region
-      <i className="fas fa-chevron-down mi-icon" />
-      <ul className={`${dropdown ? 'button-open' : 'button-close'}`}>
-        <li onClick={() => onRegionChange ('Africa')}>Africa</li>
-        <li onClick={() => onRegionChange ('Americas')}>Americas</li>
-        <li onClick={() => onRegionChange ('Asia')}>Asia</li>
-        <li onClick={() => onRegionChange ('Europe')}>Europe</li>
-        <li onClick={() => onRegionChange ('Oceania')}>Oceania</li>
-      </ul>
+    <FilterStyled className="button">
+      <div
+        className={`${dropdown ? 'button-open' : 'button-close'}`}
+        onClick={() => setdropdown (!dropdown)}
+        id="filter"
+      >
+        Filter by Region
+        <i className="fas fa-chevron-down mi-icon" />
+        <ul>
+          <li onClick={() => onRegionChange ('Africa')}>Africa</li>
+          <li onClick={() => onRegionChange ('Americas')}>Americas</li>
+          <li onClick={() => onRegionChange ('Asia')}>Asia</li>
+          <li onClick={() => onRegionChange ('Europe')}>Europe</li>
+          <li onClick={() => onRegionChange ('Oceania')}>Oceania</li>
+        </ul>
+      </div>
     </FilterStyled>
   );
 }

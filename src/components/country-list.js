@@ -1,14 +1,33 @@
-import React, {useEffect} from 'react';
-import './styles/country-list.css';
+import React, {useEffect, useState} from 'react';
 import Country from './country';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import Wrapper from './wrapper';
+import styled from 'styled-components';
+import LoadingSke from './skeleton';
+
+const CountryListStyled = styled.div`
+.container-list{
+  display: grid;
+  grid-row-gap: 2.3em;
+  row-gap: 2.3em;
+  grid-auto-flow: columns;
+  grid-column-gap: 66px;
+  column-gap: 66px;
+  grid-template-columns: repeat(auto-fill, 270px);
+  background: var(--background);
+  justify-content: center;
+  padding: 3em 0;
+}
+
+`;
 
 function Countrylist () {
   //1:PASO DEL DISPATCH LOS DATOS DE LA API A MI ACTION
   //2:DESDE APP, DONDE ESTA MI STORE, SETEO LOS DATOS TOMADOS ENEL ARRAY "COUNTRYLIST"
   //3:VUELVO ACA Y USESELECTOR VA A RENDERIZAR LOS DATOS QUE ENCUENTRE EN MI ARRAY "COUNTRYLIST"
+  const dispatch = useDispatch ();
 
-  const dispatch = useDispatch (); //sirve para manejar los datos del state de action
+  const [isLoading, setIsLoading] = useState (false);
 
   const countryListByName = useSelector (state => state.countryListByName);
 
@@ -25,40 +44,60 @@ function Countrylist () {
 
   useEffect (
     () => {
-      fetch ('https://restcountries.eu/rest/v2/all')
-        .then (response => {
-          return response.json ();
-        })
-        .then (list => {
-          //LE PASO LA LIST A ACTION
-          dispatch ({
-            type: 'SET_COUNTRY_LIST',
-            payload: list,
+      setIsLoading (true);
+      setTimeout (() => {
+        fetch ('https://restcountries.eu/rest/v2/all')
+          .then (response => {
+            setIsLoading (false);
+            return response.json ();
+          })
+          .then (list => {
+            setIsLoading (false);
+            //LE PASO LA LIST A ACTION
+            dispatch ({
+              type: 'SET_COUNTRY_LIST',
+              payload: list,
+            });
+          })
+          .catch (() => {
+            setIsLoading (false);
+            console.log ('hubo un error!!');
           });
-        })
-        .catch (() => {
-          console.log ('hubo un error!!');
-        });
+      }, 3000);
     },
     [dispatch]
   );
 
-  return (
-    <div className="container-list">
-      {countryList.map (country => {
-        return (
-          <Country
-            flag={country.flag}
-            name={country.name}
-            population={country.population}
-            region={country.region}
-            capital={country.capital}
-            key={country.name}
-          />
-        );
-      })}
+  if (isLoading) {
+    return (
+      <Wrapper>
+        <CountryListStyled>
+          <LoadingSke />
+        </CountryListStyled>
+      </Wrapper>
+    );
+  }
 
-    </div>
+  return (
+    <Wrapper>
+      <CountryListStyled>
+        <div className="container-list">
+          {countryList.map (country => {
+            return (
+              <Country
+                flag={country.flag}
+                name={country.name}
+                population={country.population}
+                region={country.region}
+                capital={country.capital}
+                key={country.name}
+                alpha2Code={country.alpha2Code}
+              />
+            );
+          })}
+        </div>
+      </CountryListStyled>
+    </Wrapper>
   );
 }
 

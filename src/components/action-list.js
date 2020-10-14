@@ -21,9 +21,11 @@ function ActionList () {
   return (
     <ActionListStyled>
       <Wrapper>
-        <Search />
-        <span />
-        <SearchRegion />
+        <div className="grid">
+          <Search />
+          <span />
+          <SearchRegion />
+        </div>
       </Wrapper>
     </ActionListStyled>
   );
