@@ -89,7 +89,7 @@ function LoadingSke () {
             </p>
           </div>
         </div>
-        <span className="borders"><Skeleton /></span>
+        <strong className="borders"><Skeleton /></strong>
         <span className="border-item"><Skeleton /></span>
         <span className="border-item"><Skeleton /></span>
         <span className="border-item"><Skeleton /></span>
