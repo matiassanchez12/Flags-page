@@ -49,6 +49,7 @@ function Countrylist () {
         fetch ('https://restcountries.com/v3.1/all')
           .then (response => {
             setIsLoading (false);
+          console.log(response);
             return response.json ();
           })
           .then (list => {
