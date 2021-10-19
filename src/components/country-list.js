@@ -46,7 +46,7 @@ function Countrylist () {
     () => {
       setIsLoading (true);
       setTimeout (() => {
-        fetch ('https://restcountries.com/v3.1/all')
+        fetch ('https://restcountries.com/v2/all')
           .then (response => {
             setIsLoading (false);
           console.log(response);
