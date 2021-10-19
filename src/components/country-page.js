@@ -44,7 +44,7 @@ function CountryPage({match, history}) {
         setIsLoading (true);
         setTimeout (() => {
           fetch (
-            `https://restcountries.eu/rest/v2/alpha/${match.params.id.toLowerCase ()}`
+                       `https://restcountries.com/v2/alpha/${match.params.id.toLowerCase ()}`
           )
             .then (response => {
               response.json ();
